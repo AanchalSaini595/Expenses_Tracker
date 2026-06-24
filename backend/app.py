@@ -1,9 +1,10 @@
 import sqlite3
-from flask import Flask, jsonify, request
+import os
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)
+app = Flask(__name__, static_folder='dist', static_url_path='')
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Create database and table if not exists
 conn = sqlite3.connect("expenses.db", check_same_thread=False)
