@@ -11,7 +11,7 @@ export default function App() {
 
   const fetchExpenses = async () => {
     try {
-      const res = await axios.get("https://expenses-tracker-backend-2i08.onrender.com");
+      const res = await axios.get("https://expenses-tracker-backend-2i08.onrender.com/expenses");
       setExpenses(res.data);
     } catch (err) {
       console.error(err);
@@ -24,7 +24,7 @@ export default function App() {
 
   const addExpense = async (expense: Omit<Expense, "id">) => {
     try {
-      await axios.post("https://expenses-tracker-backend-2i08.onrender.com", expense);
+      await axios.post("https://expenses-tracker-backend-2i08.onrender.com/expenses", expense);
       fetchExpenses();
     } catch (err) {
       console.error(err);
@@ -34,7 +34,7 @@ export default function App() {
 const deleteExpense = async (id: number) => {
   console.log("Deleting expense with id:", id); // 👈 debug
   try {
-    await axios.delete(`https://expenses-tracker-backend-2i08.onrender.com/${id}`);
+    await axios.delete(`https://expenses-tracker-backend-2i08.onrender.com/expenses${id}`);
     setExpenses(prev => prev.filter(exp => exp.id !== id));
   } catch (error) {
     console.error("Error deleting expense:", error);
