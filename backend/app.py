@@ -45,6 +45,10 @@ def add_expense():
     conn.close()
     return jsonify({"message": "Expense added"}), 201
 
+@app.route("/expenses/<int:expense_id>", methods=["OPTIONS"])
+def options_expense(expense_id):
+    return jsonify({}), 200
+
 @app.route("/expenses/<int:expense_id>", methods=["DELETE"])
 def delete_expense(expense_id):
     conn = get_db()
