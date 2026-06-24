@@ -34,7 +34,7 @@ export default function App() {
 const deleteExpense = async (id: number) => {
   console.log("Deleting expense with id:", id); // 👈 debug
   try {
-    await axios.delete(`https://expenses-tracker-backend-2i08.onrender.com/expenses${id}`);
+    await axios.delete(`https://expenses-tracker-backend-2i08.onrender.com/expenses/${id}`);
     setExpenses(prev => prev.filter(exp => exp.id !== id));
   } catch (error) {
     console.error("Error deleting expense:", error);
