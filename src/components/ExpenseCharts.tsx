@@ -26,8 +26,8 @@ export default function ExpenseCharts({ summary }: Props) {
                 cx="50%"
                 cy="50%"
                 outerRadius={90}
-                label={(entry: { category?: string; total?: number }) =>
-                  `${entry.category}: $${(entry.total ?? 0).toFixed(0)}`
+                label={(props: any) =>
+                  `${props.payload?.category}: $${(props.value ?? 0).toFixed(0)}`
                 }
               >
                 {summary.by_category.map((_, index) => (
