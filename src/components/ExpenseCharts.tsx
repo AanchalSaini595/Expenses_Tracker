@@ -26,13 +26,15 @@ export default function ExpenseCharts({ summary }: Props) {
                 cx="50%"
                 cy="50%"
                 outerRadius={90}
-                label={(entry) => `${entry.category}: $${entry.total.toFixed(0)}`}
+                label={(entry: { category?: string; total?: number }) =>
+                  `${entry.category}: $${(entry.total ?? 0).toFixed(0)}`
+                }
               >
                 {summary.by_category.map((_, index) => (
                   <Cell key={index} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
-              <Tooltip formatter={(value: number) => `$${value.toFixed(2)}`} />
+              <Tooltip formatter={(value) => `$${Number(value ?? 0).toFixed(2)}`} />
               <Legend />
             </PieChart>
           </ResponsiveContainer>
@@ -47,7 +49,7 @@ export default function ExpenseCharts({ summary }: Props) {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" />
               <YAxis />
-              <Tooltip formatter={(value: number) => `$${value.toFixed(2)}`} />
+              <Tooltip formatter={(value) => `$${Number(value ?? 0).toFixed(2)}`} />
               <Line type="monotone" dataKey="total" stroke="#4e79a7" strokeWidth={2} dot={{ r: 4 }} />
             </LineChart>
           </ResponsiveContainer>
