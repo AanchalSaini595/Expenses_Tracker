@@ -1,52 +1,69 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import AddExpense from "./components/AddExpenses.tsx";
+import AddExpense from "./components/AddExpense.tsx";
 import ExpenseList from "./components/ExpenseList.tsx";
 import ExpenseSummary from "./components/ExpenseSummary.tsx";
-import type{ Expense } from "./types";
+import ExpenseCharts from "./components/ExpenseCharts.tsx";
+import type { Expense, Summary } from "./types";
 
+const API_BASE = "https://expenses-tracker-backend-2i08.onrender.com";
 
 export default function App() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [summary, setSummary] = useState<Summary | null>(null);
 
   const fetchExpenses = async () => {
     try {
-      const res = await axios.get("https://expenses-tracker-backend-2i08.onrender.com/expenses");
+      const res = await axios.get(`${API_BASE}/expenses`);
       setExpenses(res.data);
     } catch (err) {
       console.error(err);
     }
   };
 
-  useEffect(() => {
-    fetchExpenses();
-  }, []);
-
-  const addExpense = async (expense: Omit<Expense, "id">) => {
+  const fetchSummary = async () => {
     try {
-      await axios.post("https://expenses-tracker-backend-2i08.onrender.com/expenses", expense);
-      fetchExpenses();
+      const res = await axios.get(`${API_BASE}/summary`);
+      setSummary(res.data);
     } catch (err) {
       console.error(err);
     }
   };
 
-const deleteExpense = async (id: number) => {
-  console.log("Deleting expense with id:", id); // 👈 debug
-  try {
-    await axios.delete(`https://expenses-tracker-backend-2i08.onrender.com/expenses/${id}`);
-    setExpenses(prev => prev.filter(exp => exp.id !== id));
-  } catch (error) {
-    console.error("Error deleting expense:", error);
-  }
-};
+  const refreshAll = () => {
+    fetchExpenses();
+    fetchSummary();
+  };
 
+  useEffect(() => {
+    refreshAll();
+  }, []);
+
+  const addExpense = async (expense: Omit<Expense, "id">) => {
+    try {
+      await axios.post(`${API_BASE}/expenses`, expense);
+      refreshAll();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const deleteExpense = async (id: number) => {
+    try {
+      await axios.delete(`${API_BASE}/expenses/${id}`);
+      setExpenses(prev => prev.filter(exp => exp.id !== id));
+      fetchSummary();
+    } catch (error) {
+      console.error("Error deleting expense:", error);
+    }
+  };
 
   return (
     <div className="container my-5">
-      <h1 className="text-center text-primary mb-5">💰 Expense Control</h1>
+      <h1 className="text-center text-primary mb-5"> Expense Control</h1>
       <AddExpense addExpense={addExpense} />
       <ExpenseSummary expenses={expenses} />
+      <ExpenseCharts summary={summary} />
       <ExpenseList expenses={expenses} deleteExpense={deleteExpense} />
     </div>
   );
