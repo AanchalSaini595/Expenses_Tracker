@@ -8,6 +8,9 @@ import type { Expense, Summary } from "./types";
 
 const API_BASE = "https://expenses-tracker-backend-2i08.onrender.com";
 
+
+
+
 export default function App() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);
