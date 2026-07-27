@@ -1,0 +1,10 @@
+list = [1,2,3,4]
+
+dict = {}
+for i in list:
+ if i not in dict:
+    dict = i;
+
+print(
+dict
+)
