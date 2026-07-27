@@ -16,7 +16,7 @@ export default function ExpenseCharts({ summary }: Props) {
     <div className="row mb-5 g-3">
       <div className="col-md-6">
         <div className="card p-3 shadow-sm">
-          <h5 className="mb-3">🥧 Spending by Category</h5>
+          <h5 className="mb-3"> Spending by Category</h5>
           <ResponsiveContainer width="100%" height={280}>
             <PieChart>
               <Pie
@@ -43,7 +43,7 @@ export default function ExpenseCharts({ summary }: Props) {
 
       <div className="col-md-6">
         <div className="card p-3 shadow-sm">
-          <h5 className="mb-3">📈 Monthly Spending Trend</h5>
+          <h5 className="mb-3"> Monthly Spending Trend</h5>
           <ResponsiveContainer width="100%" height={280}>
             <LineChart data={summary.by_month}>
               <CartesianGrid strokeDasharray="3 3" />

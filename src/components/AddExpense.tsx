@@ -32,7 +32,7 @@ export default function AddExpense({ addExpense }: Props) {
 
   return (
     <div className="card p-4 mb-5 shadow-sm">
-      <h4 className="mb-4">➕ Add New Expense</h4>
+      <h4 className="mb-4"> Add New Expense</h4>
       <form onSubmit={handleSubmit}>
         <div className="row g-3 mb-3">
           <div className="col-md-3">
@@ -57,7 +57,7 @@ export default function AddExpense({ addExpense }: Props) {
             </select>
           </div>
         </div>
-        <button type="submit" className="btn btn-success w-100 mt-3">➕ Add Expense</button>
+        <button type="submit" className="btn btn-success w-100 mt-3">Add Expense</button>
       </form>
     </div>
   );
